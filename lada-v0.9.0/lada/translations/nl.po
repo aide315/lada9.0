@@ -1,0 +1,685 @@
+# SPDX-FileCopyrightText: Lada Authors
+# SPDX-License-Identifier: AGPL-3.0
+msgid ""
+msgstr ""
+"Project-Id-Version: lada\n"
+"Report-Msgid-Bugs-To: https://github.com/ladaapp/issues\n"
+"POT-Creation-Date: 2025-11-26 13:23+0000\n"
+"PO-Revision-Date: 2025-11-26 21:39+0000\n"
+"Last-Translator: Vistaus <vistaus@noreply.codeberg.org>\n"
+"Language-Team: Dutch <https://translate.codeberg.org/projects/lada/lada/nl/>"
+"\n"
+"Language: nl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.14\n"
+
+msgid "Open in External Program…"
+msgstr "Openen in extern programma…"
+
+msgid "Show Error"
+msgstr "Foutmelding tonen"
+
+msgid "Remove"
+msgstr "Verwijderen"
+
+msgid "Export video"
+msgstr "Video exporteren"
+
+msgid "Restore"
+msgstr "Herstellen"
+
+msgid "Resume"
+msgstr "Hervatten"
+
+msgid "Pause"
+msgstr "Onderbreken"
+
+msgid "Cancel"
+msgstr "Annuleren"
+
+msgid "Open File"
+msgstr "Bestand openen"
+
+msgid "Settings"
+msgstr "Instellingen"
+
+msgid "Add Files…"
+msgstr "Bestanden toevoegen…"
+
+msgid "Keyboard Shortcuts"
+msgstr "Sneltoetsen"
+
+msgid "About Lada"
+msgstr "Over Lada"
+
+#, python-brace-format
+msgid "Duration: {duration}, Resolution: {resolution}, Frame rate: {fps} FPS"
+msgstr "Duur: {duration} — Resolutie: {resolution} — Framesnelheid: {fps} fps"
+
+msgid "Restoration failed"
+msgstr "Het herstellen is mislukt"
+
+#, python-brace-format
+msgid "Error while processing <span><tt>{filename}</tt></span>"
+msgstr ""
+"Er is een fout opgetreden tijdens het verwerken van <span><tt>{filename}</"
+"tt></span>"
+
+msgid "Okay"
+msgstr "Oké"
+
+msgid "Failed"
+msgstr "Mislukt"
+
+#, python-brace-format
+msgid "Finished  |  Processed: {time_done} ({frames_done} frames)"
+msgstr "Afgerond  |  Verwerkt: {time_done} ({frames_done} frames)"
+
+#, python-brace-format
+msgid ""
+"Processing… {done_percent}%  |  Processed: {time_done} ({frames_done} "
+"frames)  |  Remaining: {time_remaining} ({frames_remaining} frames)  |  "
+"Speed: {speed_fps} FPS"
+msgstr ""
+"Bezig met verwerken… {done_percent}%  |  Verwerkt: {time_done} "
+"({frames_done} frames)  |  Resterend: {time_remaining} ({frames_remaining} "
+"frames)  |  Snelheid: {speed_fps} fps"
+
+#, python-brace-format
+msgid ""
+"Processing… {done_percent}%  |  Processed: {time_done} ({frames_done} "
+"frames)  |  Remaining: Estimating… |  Speed: Estimating…"
+msgstr ""
+"Bezig met verwerken… {done_percent}%  |  Verwerkt: {time_done} "
+"({frames_done} frames)  |  Resterend: bezig met berekenen… | Snelheid: bezig "
+"met berekenen…"
+
+#, python-brace-format
+msgid "Paused  |  Processed: {time_done} ({frames_done} frames)"
+msgstr "Onderbroken  |  Verwerkt: {time_done} ({frames_done} frames)"
+
+msgid "Restoring video…"
+msgstr "Bezig met herstellen…"
+
+msgid "Finished video restoration!"
+msgstr "De video is hersteld!"
+
+msgid "Restoration paused"
+msgstr "Het herstellen is onderbroken"
+
+msgid "Restore…"
+msgstr "Herstellen…"
+
+msgid "Save restored video file"
+msgstr "Hersteld videobestand opslaan"
+
+msgid "Save restored video files"
+msgstr "Herstelde videobestanden opslaan"
+
+msgid "Shutdown System"
+msgstr "Computer afsluiten"
+
+msgid "Export has finished. The system will shutdown in 30 seconds."
+msgstr ""
+"Het exporteren is voltooid - de computer wordt over 30 seconden afgesloten."
+
+msgid "Shutdown Failed"
+msgstr "Afsluiten mislukt"
+
+msgid "Failed to initiate system shutdown. Please check system permissions."
+msgstr "Het afsluiten is mislukt - controleer de bevoegdheden."
+
+msgid "Shutdown now"
+msgstr "Nu afsluiten"
+
+msgid "No GPU detected! Running the app on CPU will be painfully slow."
+msgstr ""
+"Er is geen videokaart aangetroffen. Het programma zal daardoor erg traag "
+"zijn."
+
+msgid "Click the folder button to choose a default"
+msgstr "Klik op de mapknop om een standaardmap te kiezen"
+
+msgid "Select a folder where restored videos should be saved"
+msgstr "Kies de map waarin herstelde videobestanden moeten worden opgeslagen"
+
+msgid "Select a folder for temporary files"
+msgstr "Kies de map met tijdelijke bestanden"
+
+msgid "Mosaic Removal"
+msgstr "Mozaïeken verwijderen"
+
+msgid "Detection model"
+msgstr "Detectiemodel"
+
+msgid "Model used for detecting mosaic areas."
+msgstr "Het model waarmee mozaïeken worden vastgesteld."
+
+msgid "Restoration model"
+msgstr "Herstelmodel"
+
+msgid "Model used for restoring mosaic areas."
+msgstr "Het model waarmee mozaïeken worden hersteld."
+
+msgid "Maximum clip duration"
+msgstr "Maximale clipduur"
+
+msgid ""
+"Maximum number of frames for restoration. Higher values improve temporal "
+"stability. Lower values reduce memory footprint."
+msgstr ""
+"Het maximale aantal te herstellen frames. Hogere waarden vergroten de "
+"stabiliteit; lagere waarden verkleinen het geheugengebruik."
+
+msgid "GPU"
+msgstr "Videokaart"
+
+msgid "Selected GPU for model processing."
+msgstr "Kies de te gebruiken videokaart."
+
+msgid "Playback"
+msgstr "Afspelen"
+
+msgid "Buffer duration"
+msgstr "Bufferduur"
+
+msgid ""
+"How much video is pre-loaded for playback, measured in seconds. If set to 0 "
+"this value will be chosen automatically."
+msgstr ""
+"Hoeveel seconden van de video vooraf wordt ingeladen. Stel in op 0 om "
+"automatisch te kiezen."
+
+msgid "Mute audio by default"
+msgstr "Geluid standaard dempen"
+
+msgid ""
+"When enabled, audio will be muted automatically when a new file is opened."
+msgstr ""
+"Schakel in om het geluid automatisch te dempen na het openen van een bestand."
+
+msgid "Enable seek preview"
+msgstr "Doorspoelen voorvertonen"
+
+msgid "Show a preview of the video frame when hovering over the timeline."
+msgstr ""
+"Toon een voorvertoning van het videoframe op de tijdlijn waarop je de muis "
+"houdt."
+
+msgid "Export"
+msgstr "Exporteren"
+
+msgid "Codec"
+msgstr "Codec"
+
+msgid "Video Codec used for encoding the restored video."
+msgstr "De te gebruiken videocodec voor het herstellen van de video."
+
+msgid "CRF (Constant Rate Factor)"
+msgstr "CRF (Constant Rate Factor)"
+
+msgid ""
+"Quality setting of the video encoder. Lower values will result in higher "
+"quality but larger file sizes."
+msgstr ""
+"De kwaliteitsinstelling van de video-encodering. Lagere waarden leiden tot "
+"hogere kwaliteit, maar ook tot grotere bestanden."
+
+msgid ""
+"Custom FFmpeg encoder options (Optional).\n"
+"Example: <span background=\"#D3D3D350\"><tt>-rc-lookahead 32 -rc vbr_hq</"
+"tt></span>"
+msgstr ""
+"Aangepaste FFmpeg-encoderingsopties (optioneel).\n"
+"Voorbeeld: <span background=\"#D3D3D350\"><tt>-rc-lookahead 32 -rc vbr_hq</"
+"tt></span>"
+
+msgid ""
+"FFmpeg Codecs Documentation:\n"
+"https://ffmpeg.org/ffmpeg-codecs.html"
+msgstr ""
+"FFmpeg-codecsdocumentatie:\n"
+"https://ffmpeg.org/ffmpeg-codecs.html"
+
+msgid "Output Directory"
+msgstr "Resultaatmap"
+
+msgid "Always ask"
+msgstr "Altijd vragen"
+
+msgid "Use this folder"
+msgstr "Deze map gebruiken"
+
+msgid "Temporary Directory"
+msgstr "Tijdelijke map"
+
+msgid "Directory for temporary video files during restoration process"
+msgstr ""
+"De map waarin tijdelijke bestanden worden opgeslagen tijdens het "
+"herstelproces"
+
+msgid ""
+"File name pattern for restored files.\n"
+"Must include placeholder <span background=\"#D3D3D350\"><tt>{orig_file_name}"
+"</tt></span>."
+msgstr ""
+"Het bestandsnaampatroon voor herstelde bestanden.\n"
+"De opvultekst <span background=\"#D3D3D350\"><tt>{orig_file_name}</tt></"
+"span> is vereist."
+
+msgid "Post-Export Action"
+msgstr "Naverwerkingsactie"
+
+msgid "Action to be run after all queued files have been restored"
+msgstr "De actie die moet worden uitgevoerd nadat alle bestanden zijn hersteld"
+
+msgid "Shutdown system"
+msgstr "Computer afsluiten"
+
+msgid "Automatically shutdown the system after export is completed."
+msgstr "Sluit de computer automatisch af nadat het exporteren is voltooid."
+
+msgid "Execute custom command"
+msgstr "Opdracht uitvoeren"
+
+msgid "Run a custom shell command after export is completed."
+msgstr "Voer een shellopdracht uit nadat het exporteren is voltooid."
+
+msgid "Custom command"
+msgstr "Opdracht"
+
+msgid "Troubleshooting"
+msgstr "Probleemoplossing"
+
+msgid "Show mosaic detections"
+msgstr "Mozaïekdetecties tonen"
+
+msgid ""
+"Show detected mosaic areas. Useful to evaluate quality of detection model."
+msgstr ""
+"Toon vastgestelde mozaïekgebieden. Handig voor het evalueren van de "
+"kwaliteit van het detectiemodel."
+
+msgid "UI"
+msgstr "Vormgeving"
+
+msgid "Color Scheme"
+msgstr "Thema"
+
+msgid "Follow System style"
+msgstr "Systeemthema gebruiken"
+
+msgid "Light style"
+msgstr "Licht thema"
+
+msgid "Dark style"
+msgstr "Donker thema"
+
+msgid "Default View"
+msgstr "Standaardscherm"
+
+msgid "View shown after opening files"
+msgstr "Het te tonen scherm na het openen van bestanden"
+
+msgid "Watch"
+msgstr "Bekijken"
+
+msgid "Reset to factory settings"
+msgstr "Standaardwaarden herstellen"
+
+msgid "Restore pixelated adult videos"
+msgstr "Herstel gepixelde 18+-video's"
+
+msgid "Drop one or more videos here"
+msgstr "Sleep een of meerdere bestanden hierheen"
+
+msgid "Open Files…"
+msgstr "Bestanden openen…"
+
+msgid "Toggle Fullscreen"
+msgstr "Schermvullende weergave"
+
+msgid "Mute/Unmute"
+msgstr "Dempen/Ontdempen"
+
+msgid "Play/Pause"
+msgstr "Afspelen/Pauzeren"
+
+msgid "Enable/Disable fullscreen"
+msgstr "Schermvullende weergave aan/uit"
+
+msgid "Switch to Export View"
+msgstr "Exportscherm tonen"
+
+msgid "Switch to Watch View"
+msgstr "Afspeelscherm tonen"
+
+msgid "Select one or multiple video files"
+msgstr "Kies een of meerdere videobestanden"
+
+msgid "Examples:"
+msgstr "Voorbeelden:"
+
+msgid "Restore video with default settings:"
+msgstr "Herstel een video met de standaardinstellingen:"
+
+#, python-format
+msgid "%(prog)s --input input.mp4"
+msgstr "%(prog)s --input bestand.mp4"
+
+msgid ""
+"Restore all videos found in the specified directory and save them to a "
+"different folder:"
+msgstr ""
+"Herstel alle video's in de opgegeven map en bewaar ze in een andere map:"
+
+#, python-format
+msgid "%(prog)s --input path/to/input/dir/ --output /path/to/output/dir/"
+msgstr ""
+"%(prog)s --input locatie/van/bronmap/ --output /locatie/van/resultaatmap/"
+
+msgid "Use a GPU-accelerated codec for encoding the restored video:"
+msgstr "Gebruik hardwareversnelling om een herstelde video te encoderen:"
+
+#, python-format
+msgid "%(prog)s --input input.mp4 --codec hevc_nvenc --crf 20"
+msgstr "%(prog)s --input bestand.mp4 --codec hevc_nvenc --crf 20"
+
+#, python-format
+msgid "%(prog)s [options]"
+msgstr "%(prog)s [opties]"
+
+msgid "Restore pixelated adult videos (JAV)"
+msgstr "Gepixelde 18+-video's herstellen (JAV)"
+
+msgid "General"
+msgstr "Algemeen"
+
+msgid "Path to pixelated video file or directory containing video files"
+msgstr "Locatie van gepixelde video of map met videobestanden"
+
+msgid ""
+"Path used to save output file(s). If path is a directory then file name will "
+"be chosen automatically (see --output-file-pattern). If no output path was "
+"given then the directory of the input file will be used"
+msgstr ""
+"De locatie waarin de resultaatbestanden moeten worden opgeslagen. Als de "
+"locatie een map is, dan worden bestandsnamen automatisch gekozen (zie --"
+"output-file-pattern). Zonder resultaatmap wordt de bronmap gebruikt."
+
+#, python-format, python-brace-format
+msgid ""
+"Pattern used to determine output file name(s). Used when input is a "
+"directory, or a file but no output path was specified. Must include the "
+"placeholder '{orig_file_name}'. (default: %(default)s)"
+msgstr ""
+"Het patroon dat moet worden gebruikt voor de resultaten. Van toepassing als "
+"de invoer een map is of bestand zonder resultaatlocatie. Gebruik van de "
+"opvultekst ‘{orig_file_name}’ is vereist. (standaard: %(default)s)"
+
+#, python-format
+msgid ""
+"Device used for running Restoration and Detection models. Use \"cpu\" or "
+"\"cuda\". If you have multiple GPUs you can select a specific one via index "
+"e.g. \"cuda:0\" (default: %(default)s)"
+msgstr ""
+"Het te gebruiken apparaat voor herstel- en detectiemodellen. Kies uit ‘cpu’ "
+"of ‘cuda’. Als je computer over meerdere videokaarten beschikt, kies dan de "
+"gewenste, bijvoorbeeld ‘cuda:0’. (standaard: %(default)s)"
+
+msgid ""
+"Use FP16 precision for restoration and detection models. Reduces memory "
+"usage. (default: True if CUDA is available)"
+msgstr ""
+"Maak gebruik van FP16-precisie voor herstel- en detectiemodellen. Hiermee "
+"wordt het geheugengebruik verlaagd. (standaard: ingeschakeld indien CUDA "
+"beschikbaar is)"
+
+msgid "List available devices and exit"
+msgstr "Toon de beschikbare apparaten en sluit af"
+
+msgid "Display version and exit"
+msgstr "Toon het versienummer en sluit af"
+
+msgid "Show this help message and exit"
+msgstr "Toon dit hulpbericht en sluit af"
+
+msgid "Export (Encoder settings)"
+msgstr "Exporteren (encoderingsinstellingen)"
+
+#, python-format
+msgid ""
+"FFmpeg video codec. E.g. \"h264, \"hevc\" or \"hevc_nvenc\". Use \"--list-"
+"codecs\" to see what's available. (default: %(default)s)"
+msgstr ""
+"De FFmpeg-videocodec, bijv. ‘h264’, ‘hevc’ of ‘hevc_nvenc’. Bekijk de "
+"volledige lijst aan de hand van ‘--list-codecs’. (standaard: %(default)s)"
+
+msgid ""
+"List available codecs and hardware devices / GPUs for hardware-accelerated "
+"video encoding"
+msgstr ""
+"Toon alle beschikbare coders en hardwareapparaten/videokaarten voor "
+"hardwareversnelde encodering"
+
+#, python-format
+msgid ""
+"Constant rate factor (CRF). Quality setting of the video encoder. Lower "
+"values will result in higher quality but larger file sizes. If you have "
+"selected GPU codecs \"h264_nvenc\" or \"hevc_nvenc\" then the option \"qp\" "
+"will be used instead as those encoders don't support the \"crf\" option. "
+"(default: %(default)s)"
+msgstr ""
+"De constante snelheidsfactor (CRF), oftewel de kwaliteitsinstelling van de "
+"video-encodering. Lagere waarden leiden tot hogere kwaliteit, maar grotere "
+"bestanden. Als je gekozen hebt voor de codecs ‘h264_nvenc’ of ‘hevc_nvenc’, "
+"dan wordt de optie ‘qp’ gebruikt, daar die codecs geen ondersteuning hebben "
+"voor ‘crf’. (standaard: %(default)s)"
+
+#, python-format
+msgid ""
+"Encoder preset. Mostly affects file-size and speed. (default: %(default)s)"
+msgstr ""
+"Het encoderingsprofiel, met name van toepassing op snelheid en "
+"bestandsgrootte. (standaard: %(default)s)"
+
+#, python-format
+msgid ""
+"Sets ffmpeg mov flags 'frag_keyframe+empty_moov+faststart'. Enables playing "
+"the output video while it's being written (default: %(default)s)"
+msgstr ""
+"Stel de ffmpeg mov-opties in op ‘frag_keyframe+empty_moov+faststart’. "
+"Schakelt het afspelen van de resulterende video in terwijl deze nog wordn "
+"verwerkt. (standaard: %(default)s)"
+
+msgid ""
+"Pass arbitrary encoder options. Pass it like you'd specify them using "
+"ffmpeg. For example: --custom-encoder-options \"-rc-lookahead 32 -rc "
+"vbr_hq\". Official FFmpeg Codecs Documentation: https://ffmpeg.org/ffmpeg-"
+"codecs.html"
+msgstr ""
+"Stuur arbitraire encoderingsopties door, zoals je bij ffmpeg zou doen. "
+"Voorbeeld: --custom-encoder-options \"-rc-lookahead 32 -rc vbr_hq\". "
+"Officiële FFmpeg-codecdocumentatie: https://ffmpeg.org/ffmpeg-codecs.html"
+
+msgid "Mosaic Restoration"
+msgstr "Mozaïekherstel"
+
+#, python-format
+msgid "Model used to restore mosaic clips (default: %(default)s)"
+msgstr "Het te gebruiken model voor mozaïekclips (standaard: %(default)s)"
+
+msgid ""
+"List available restoration models found in model weights directory and exit "
+"(default location is './model_weights' if not overwritten by environment "
+"variable LADA_MODEL_WEIGHTS_DIR)"
+msgstr ""
+"Toon de beschikbare herstelmodellen die beschikbaar zijn in de "
+"modelgewichtenmap en sluit af (standaardlocatie: ‘./model_weights’, indien "
+"niet overschreven door de omgevingsvariabele ‘LADA_MODEL_WEIGHTS_DIR’)"
+
+#, python-format
+msgid "Path to restoration model weights file (default: %(default)s)"
+msgstr "Locatie van herstelmodel-afwegingsbestand (standaard: %(default)s)"
+
+msgid ""
+"Path to restoration model configuration file. You'll not have to set this "
+"unless you're training your own custom models"
+msgstr ""
+"De locatie van het instellingenbstand van het herstelmodel. Je hoeft dit "
+"niet in te stellen, tenzij je je eigen modellen wilt trainen."
+
+#, python-format
+msgid ""
+"Maximum number of frames for restoration. Higher values improve temporal "
+"stability. Lower values reduce memory footprint. If set too low flickering "
+"could appear (default: %(default)s)"
+msgstr ""
+"Het maximumaantal te herstellen frames. Hogere waarden verhogen de "
+"stabiliteit; lagere waarden verlagen het geheugengebruik. Let op: een te "
+"lage waarde kan flikkeringen veroorzaken. (standaard: %(default)s)"
+
+msgid "Mosaic Detection"
+msgstr "Mozaïekdetectie"
+
+msgid ""
+"List available detection models found in model weights directory and exit "
+"(default location is './model_weights' if not overwritten by environment "
+"variable LADA_MODEL_WEIGHTS_DIR)"
+msgstr ""
+"Toon de beschikbare detectiemodellen die beschikbaar zijn in de "
+"modelgewichtenmap en sluit af (standaardlocatie: ‘./model_weights’, indien "
+"niet overschreven door de omgevingsvariabele ‘LADA_MODEL_WEIGHTS_DIR’)"
+
+msgid "Processing audio"
+msgstr "Audioverwerking"
+
+#, python-brace-format
+msgid "GPU {device} selected but CUDA is not available"
+msgstr ""
+"Er is gekozen voor de videokaart ‘{device}’, maar CUDA is niet beschikbaar"
+
+#, python-brace-format
+msgid ""
+"Invalid file name pattern. It must include the template string "
+"'{orig_file_name}' and a file extension"
+msgstr ""
+"Het naampatroon is ongeldig. Het patroon dient de sjabloontekenreeks "
+"‘{orig_file_name}’ en een bestandsextensie te bevatten."
+
+msgid ""
+"Invalid output directory. If input is a directory then --output must also be "
+"set to a directory"
+msgstr ""
+"De resultaatmap is ongeldig. Als de invoer een map betreft, dan dient --"
+"output eveneens een map te zijn."
+
+#, python-brace-format
+msgid "Invalid input. No file or directory at {input_path}"
+msgstr "Ongeldige invoer: geen bestand of map in {input_path}"
+
+msgid "Received Ctrl-C, stopping restoration."
+msgstr "Ctrl+C gedetecteerd — het herstel wordt afgebroken."
+
+msgid "No video files found"
+msgstr "Er zijn geen videobestanden aangetroffen"
+
+msgid "PyAV version:"
+msgstr "PyAV-versie:"
+
+msgid "Available video encoders:"
+msgstr "Beschikbare video-encoderingen:"
+
+msgid "Encoders with support for hardware acceleration (GPU):"
+msgstr "Encoderingssoftware met ondersteuning voor hardwareversnelling (gpu):"
+
+msgid "Device"
+msgstr "Apparaat"
+
+msgid "Description"
+msgstr "Beschrijving"
+
+msgid "Available devices:"
+msgstr "Beschikbare apparaten:"
+
+msgid "Available detection models:"
+msgstr "Beschikbare detectiemodellen:"
+
+msgid "None!"
+msgstr "Geen!"
+
+msgid "Name"
+msgstr "Naam"
+
+msgid "Path"
+msgstr "Locatie"
+
+msgid "Available restoration models:"
+msgstr "Beschikbaar herstelmodellen:"
+
+msgid "Usage: "
+msgstr "Gebruik: "
+
+#, python-brace-format
+msgid ""
+"Processing video: {done_percent}%|{bar}|Processed: {time_done} ({frames_done}"
+"f){bar_suffix}"
+msgstr ""
+"Videoverwerking: {done_percent}%|{bar}|Verwerkt: {time_done} ({frames_done}f)"
+"{bar_suffix}"
+
+msgid " | Remaining: ? | Speed: ?"
+msgstr " | Resterend: ? | Snelheid: ?"
+
+#, python-brace-format
+msgid ""
+" | Remaining: {time_remaining} ({frames_remaining}f) | Speed: {speed_fps}fps"
+msgstr ""
+" | Resterend: {time_remaining} ({frames_remaining}f) | Snelheid: {speed_fps}"
+"fps"
+
+#~ msgid "No action"
+#~ msgstr "Geen actie"
+
+#~ msgid "Do nothing after export is completed."
+#~ msgstr "Doe niets nadat het exporteren is voltooid."
+
+#~ msgid ""
+#~ "Pattern used to determine output file name(s). Used when input is a "
+#~ "directory or a file with no output path specified"
+#~ msgstr ""
+#~ "Het patroon waarmee de resultaatbestanden moeten worden bepaald. Wordt "
+#~ "gebruikt als de bron een map of bestand is, zonder resultaatmap."
+
+#, python-format
+#~ msgid ""
+#~ "FFmpeg video codec. E.g. \"h264, \"hevc\" or \"hevc_nvenc\". Use \"--list-"
+#~ "codecs\" to see whats available. (default: %(default)s)"
+#~ msgstr ""
+#~ "De te gebruiken FFmpeg-videocodec, bijv. ‘h264’, ‘hevc’ of ‘hevc_nvenc’. "
+#~ "Bekijk alle beschikbare codecs met ‘--list-codecs’. (standaard: "
+#~ "%(default)s)"
+
+#~ msgid ""
+#~ "List available restoration model weights found in MODEL_WEIGHTS_DIR and "
+#~ "exit (default location is './model_weights' if not overwritten by "
+#~ "environment variable MODEL_WEIGHTS_DIR)"
+#~ msgstr ""
+#~ "Toon de beschikbare modelafwegingen uit MODEL_WEIGHTS_DIR en sluit af "
+#~ "(standaardlocatie: ‘./model_weights’, indien niet afgedwongen door de "
+#~ "omgevingsvariabele MODEL_WEIGHTS_DIR)"
+
+#~ msgid "Path to restoration model configuration file"
+#~ msgstr "Locatie van herstelmodel-instellingenbestand"
+
+#~ msgid ""
+#~ "List available detection model weights found in MODEL_WEIGHTS_DIR and "
+#~ "exit (default location is './model_weights' if not overwritten by "
+#~ "environment variable MODEL_WEIGHTS_DIR)"
+#~ msgstr ""
+#~ "Toon de beschikbare modelafwegingen uit MODEL_WEIGHTS_DIR en sluit af "
+#~ "(standaardlocatie: ‘./model_weights’, indien niet afgedwongen door de "
+#~ "omgevingsvariabele MODEL_WEIGHTS_DIR)"
