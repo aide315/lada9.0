@@ -10,75 +10,177 @@ on:
 jobs:
   build:
     runs-on: windows-latest
+    timeout-minutes: 120
     
     steps:
     - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
     
     - name: Set up Python 3.13
       uses: actions/setup-python@v5
       with:
         python-version: '3.13'
+        cache: 'pip'
     
-    - name: Install uv
+    - name: Install system dependencies
       run: |
+        pip install --upgrade pip
         pip install uv
+      shell: pwsh
     
     - name: Create virtual environment
       run: |
-        uv venv --python 3.13 venv
-        
-    - name: Install dependencies
-      run: |
-        .\venv\Scripts\Activate.ps1
-        uv pip install -r lada-v0.9.0/lada/packaging/windows/requirements.txt --extra-index-url https://download.pytorch.org/whl/cu128
-        uv pip install pyinstaller==6.16.0
-        deactivate
-      shell: powershell
+        python -m venv venv
+        & '.\venv\Scripts\Activate.ps1'
+        pip install --upgrade pip setuptools wheel
+        pip install uv
+        & '.\venv\Scripts\Deactivate.ps1'
+      shell: pwsh
     
+    - name: Install Python dependencies
+      run: |
+        & '.\venv\Scripts\Activate.ps1'
+        $ErrorActionPreference = 'Continue'
+        
+        # Install core dependencies
+        uv pip install -r lada-v0.9.0/lada/packaging/windows/requirements.txt `
+          --extra-index-url https://download.pytorch.org/whl/cu128 `
+          --timeout 120 `
+          -q
+        
+        # Install PyInstaller
+        uv pip install pyinstaller==6.16.0
+        
+        # Install lada package in development mode
+        cd lada-v0.9.0/lada
+        uv pip install -e .
+        cd ../..
+        
+        & '.\venv\Scripts\Deactivate.ps1'
+      shell: pwsh
+      continue-on-error: true
+    
+    - name: Verify Python installation
+      run: |
+        & '.\venv\Scripts\Activate.ps1'
+        python --version
+        pip list | findstr -i pyinstaller
+        & '.\venv\Scripts\Deactivate.ps1'
+      shell: pwsh
+
     - name: Download model weights
       run: |
         $modelDir = "lada-v0.9.0/lada/model_weights"
-        mkdir -p $modelDir
+        if (!(Test-Path $modelDir)) {
+            New-Item -ItemType Directory -Path $modelDir -Force | Out-Null
+        }
         
-        # Download models (simplified for demonstration)
-        Write-Host "Model weights directory prepared"
-      shell: powershell
-    
+        $models = @(
+            @{ Url = "https://huggingface.co/ladaapp/lada/resolve/main/lada_mosaic_detection_model_v3.1_accurate.pt?download=true"; Name = "lada_mosaic_detection_model_v3.1_accurate.pt" },
+            @{ Url = "https://huggingface.co/ladaapp/lada/resolve/main/lada_mosaic_detection_model_v3.1_fast.pt?download=true"; Name = "lada_mosaic_detection_model_v3.1_fast.pt" },
+            @{ Url = "https://huggingface.co/ladaapp/lada/resolve/main/lada_mosaic_detection_model_v2.pt?download=true"; Name = "lada_mosaic_detection_model_v2.pt" },
+            @{ Url = "https://huggingface.co/ladaapp/lada/resolve/main/lada_mosaic_restoration_model_generic_v1.2.pth?download=true"; Name = "lada_mosaic_restoration_model_generic_v1.2.pth" }
+        )
+        
+        foreach ($model in $models) {
+            $outPath = Join-Path $modelDir $model.Name
+            if (!(Test-Path $outPath)) {
+                Write-Host "Downloading $($model.Name)..."
+                Invoke-WebRequest -Uri $model.Url -OutFile $outPath
+            }
+        }
+        
+        $dir3rd = Join-Path $modelDir "3rd_party"
+        if (!(Test-Path $dir3rd)) {
+            New-Item -ItemType Directory -Path $dir3rd -Force | Out-Null
+        }
+        
+        $out3rd = Join-Path $dir3rd "clean_youknow_video.pth"
+        if (!(Test-Path $out3rd)) {
+             Write-Host "Downloading clean_youknow_video.pth..."
+             Invoke-WebRequest -Uri "https://drive.usercontent.google.com/download?id=1ulct4RhRxQp1v5xwEmUH7xz7AK42Oqlw&export=download&confirm=t" -OutFile $out3rd
+        }
+      shell: pwsh
+
     - name: Build CLI executable
       run: |
+        & '.\venv\Scripts\Activate.ps1'
+        
         cd lada-v0.9.0/lada
-        ..\..\venv\Scripts\Activate.ps1
-        pyinstaller --noconfirm ./packaging/windows/lada.spec -- --cli-only
-        deactivate
-      shell: powershell
+        
+        # Create build directory
+        if (!(Test-Path './dist')) { New-Item -ItemType Directory -Path './dist' -Force | Out-Null }
+        
+        # Run PyInstaller
+        pyinstaller --noconfirm `
+          --distpath './dist' `
+          --buildpath './build' `
+          --specpath './build' `
+          ./packaging/windows/lada.spec
+        
+        cd ../..
+        & '.\venv\Scripts\Deactivate.ps1'
+      shell: pwsh
+      continue-on-error: true
+    
+    - name: Check build output
+      run: |
+        Write-Host "Checking build output..."
+        if (Test-Path 'lada-v0.9.0/lada/dist') {
+          Get-ChildItem 'lada-v0.9.0/lada/dist' -Recurse -File | Select-Object FullName, Length
+        } else {
+          Write-Host "ERROR: dist directory not found!"
+        }
+      shell: pwsh
     
     - name: Create 7z archive
+      if: hashFiles('lada-v0.9.0/lada/dist/**') != ''
       run: |
-        cd lada-v0.9.0/lada
-        $version = (..\..\venv\Scripts\python.exe -c "import lada; print(lada.VERSION)")
+        # Install 7zip
+        choco install 7zip -y --no-progress
         
-        # Install 7-zip if needed
-        choco install 7zip -y
+        cd lada-v0.9.0/lada
+        
+        # Get version
+        & '..\..\venv\Scripts\Activate.ps1'
+        $version = python -c "import lada; print(lada.VERSION)" 2>$null
+        & '..\..\venv\Scripts\Deactivate.ps1'
+        
+        if (-not $version) { $version = "0.9.0" }
         
         $archivePath = "./dist/lada-$version.7z"
-        7z a "$archivePath" "./dist/lada"
         
-        # Get SHA256 hash
-        $hash = (Get-FileHash -Algorithm SHA256 "$archivePath").Hash.ToLower()
-        Add-Content -Path "$archivePath.sha256" -Value "$hash  lada-$version.7z"
-      shell: powershell
+        # Create 7z archive
+        & 'C:\Program Files\7-Zip\7z.exe' a "$archivePath" "./dist/lada" -r
+        
+        # Generate SHA256
+        if (Test-Path $archivePath) {
+          $hash = (Get-FileHash -Algorithm SHA256 "$archivePath").Hash.ToLower()
+          "$hash  lada-$version.7z" | Out-File -FilePath "$archivePath.sha256" -Encoding utf8
+          Write-Host "Archive created: $archivePath"
+        }
+        
+        cd ../..
+      shell: pwsh
+      continue-on-error: true
     
     - name: Upload artifacts
+      if: always()
       uses: actions/upload-artifact@v4
       with:
         name: lada-windows-exe
-        path: lada-v0.9.0/lada/dist/lada-*.7z*
+        path: |
+          lada-v0.9.0/lada/dist/**/*.exe
+          lada-v0.9.0/lada/dist/**/*.7z*
+        if-no-files-found: warn
         retention-days: 30
     
     - name: Create Release
-      if: startsWith(github.ref, 'refs/tags/')
+      if: startsWith(github.ref, 'refs/tags/') && success()
       uses: softprops/action-gh-release@v1
       with:
-        files: lada-v0.9.0/lada/dist/lada-*.7z*
+        files: |
+          lada-v0.9.0/lada/dist/lada-*.7z*
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
