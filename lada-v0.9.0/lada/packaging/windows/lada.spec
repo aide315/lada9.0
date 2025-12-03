@@ -161,9 +161,25 @@ def get_common_datas(project_root: str):
     return common_datas
 
 def parser_args() -> dict:
+    # PyInstaller execution doesn't pass arguments to the spec file nicely when using 'pyinstaller specfile'
+    # To workaround this, we can look for a custom environment variable or just default to CLI only
+    # since we are running in a CI environment where we might not have full GTK setup.
+    # However, for now, let's just mock the args if we detect we are being run by pyinstaller
+    # or simply check os.environ for a flag.
+    
+    # Alternatively, we can just use sys.argv but wrap it to avoid crashing if flags are unknown
     parser = argparse.ArgumentParser()
     parser.add_argument("--cli-only", action="store_true", help="Only build the CLI, skipping the GUI.")
-    return parser.parse_args()
+    
+    # When run by pyinstaller, sys.argv contains pyinstaller's own arguments.
+    # We use parse_known_args to ignore unknown arguments (which are pyinstaller's).
+    args, _ = parser.parse_known_args()
+    
+    # Force CLI only via env var if set, which is easier to pass from workflow
+    if os.environ.get("LADA_BUILD_CLI_ONLY") == "1":
+        args.cli_only = True
+        
+    return args
 
 def get_project_root() -> str:
     project_root = pathlib.Path(".").absolute()
