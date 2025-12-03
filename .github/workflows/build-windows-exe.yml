@@ -113,8 +113,7 @@ jobs:
         $env:LADA_BUILD_CLI_ONLY = "1"
         pyinstaller --noconfirm `
           --distpath './dist' `
-          --buildpath './build' `
-          --specpath './build' `
+          --workpath './build' `
           ./packaging/windows/lada.spec
         
         cd ../..
