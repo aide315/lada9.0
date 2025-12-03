@@ -3,7 +3,7 @@
 # SPDX-License-Identifier: AGPL-3.0
 
 import argparse
-from PyInstaller.utils.hooks import collect_data_files
+from PyInstaller.utils.hooks import collect_data_files, collect_submodules
 from os.path import join as ospj
 import shutil
 import os
@@ -62,7 +62,7 @@ def get_gui_components(project_root_dir: str, common_datas: list, common_binarie
         pathex=[],
         binaries=gui_binaries,
         datas=gui_datas,
-        hiddenimports=[],
+        hiddenimports=collect_submodules("lada.gui"),
         hookspath=[],
         hooksconfig={
             "gi": {
