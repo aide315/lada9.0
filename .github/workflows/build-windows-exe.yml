@@ -138,10 +138,11 @@ jobs:
         
         cd lada-v0.9.0/lada
         
-        # Get version
-        & '..\..\venv\Scripts\Activate.ps1'
-        $version = python -c "import lada; print(lada.VERSION)" 2>$null
-        & '..\..\venv\Scripts\Deactivate.ps1'
+        # Get version (call Python from venv directly to avoid activation/deactivation issues)
+        $pythonExe = Join-Path '..\..' 'venv\Scripts\python.exe'
+        if (Test-Path $pythonExe) {
+          $version = & $pythonExe -c "import lada; print(lada.VERSION)" 2>$null
+        }
         
         if (-not $version) { $version = "0.9.0" }
         
