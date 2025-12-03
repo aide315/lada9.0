@@ -33,9 +33,8 @@ jobs:
       run: |
         python -m venv venv
         & '.\venv\Scripts\Activate.ps1'
-        pip install --upgrade pip setuptools wheel
+        python -m pip install --upgrade pip setuptools wheel
         pip install uv
-        & '.\venv\Scripts\Deactivate.ps1'
       shell: pwsh
     
     - name: Install Python dependencies
@@ -56,8 +55,6 @@ jobs:
         cd lada-v0.9.0/lada
         uv pip install -e .
         cd ../..
-        
-        & '.\venv\Scripts\Deactivate.ps1'
       shell: pwsh
       continue-on-error: true
     
@@ -66,7 +63,6 @@ jobs:
         & '.\venv\Scripts\Activate.ps1'
         python --version
         pip list | findstr -i pyinstaller
-        & '.\venv\Scripts\Deactivate.ps1'
       shell: pwsh
 
     - name: Download model weights
@@ -120,7 +116,6 @@ jobs:
           ./packaging/windows/lada.spec
         
         cd ../..
-        & '.\venv\Scripts\Deactivate.ps1'
       shell: pwsh
       continue-on-error: true
     
