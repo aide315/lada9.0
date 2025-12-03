@@ -1,0 +1,69 @@
+name: Build Windows EXE (GUI + CLI)
+
+on:
+  push:
+    branches: [ main, feat/re-mosaic ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+    timeout-minutes: 360
+
+    steps:
+    - name: "[1] Checkout repository"
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: "[2] Set up Python 3.13"
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.13'
+        cache: 'pip'
+
+    - name: "[3] Install base tools (uv, ffmpeg, 7zip)"
+      shell: pwsh
+      run: |
+        pip install --upgrade pip
+        pip install uv
+        choco install ffmpeg -y --no-progress
+        choco install 7zip -y --no-progress
+
+    - name: "[4] Run packaging script (GUI + CLI, skip winget)"
+      shell: pwsh
+      run: |
+        # 进入包含 pyproject.toml 的项目根目录
+        cd lada-v0.9.0/lada
+
+        # 确认当前目录正确
+        if (-not (Test-Path './pyproject.toml')) {
+          Write-Error 'pyproject.toml not found. Ensure working directory is lada-v0.9.0/lada.'
+          exit 1
+        }
+
+        # 调用官方打包脚本：不加 --cli-only，就会构建 GUI + CLI 双版本
+        # 使用 --skip-winget 避免交互式确认，依赖由上一步和 gvsbuild 解决
+        powershell -ExecutionPolicy Bypass ./packaging/windows/package_executable.ps1 --skip-winget
+
+    - name: "[5] List build output"
+      if: always()
+      shell: pwsh
+      run: |
+        Write-Host 'Listing dist directory contents...'
+        if (Test-Path 'lada-v0.9.0/lada/dist') {
+          Get-ChildItem 'lada-v0.9.0/lada/dist' -Recurse -File | Select-Object FullName, Length
+        } else {
+          Write-Host 'dist directory not found.'
+        }
+
+    - name: "[6] Upload artifacts (GUI+CLI + 7z)"
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: lada-windows-full
+        path: |
+          lada-v0.9.0/lada/dist/**/*.exe
+          lada-v0.9.0/lada/dist/**/*.7z*
+        if-no-files-found: warn
+        retention-days: 30
