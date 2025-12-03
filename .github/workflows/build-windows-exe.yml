@@ -27,6 +27,7 @@ jobs:
       run: |
         pip install --upgrade pip
         pip install uv
+        choco install ffmpeg -y
       shell: pwsh
     
     - name: Create virtual environment
@@ -109,6 +110,22 @@ jobs:
         if (!(Test-Path './dist')) { New-Item -ItemType Directory -Path './dist' -Force | Out-Null }
         
         # Run PyInstaller
+        # The spec file uses argparse, but pyinstaller doesn't support passing args directly to the spec
+        # We need to pass it via -- --cli-only or rely on the script's default behavior
+        # Looking at lada.spec, it uses parser.parse_args(), which reads from sys.argv.
+        # When running via pyinstaller, sys.argv includes pyinstaller flags.
+        # To properly support cli-only or full build, we might need to adjust lada.spec or just run it.
+        # For now, we will assume we want to build CLI only if GTK is not available, 
+        # but the previous error suggests we might want to build just CLI to avoid complex GTK setup if not needed.
+        # However, lada.spec by default tries to build GUI unless --cli-only is passed.
+        # Let's try to build with --cli-only by appending it to the command if that's the intention,
+        # OR we ensure GTK is available if we want full build.
+        # Given the 'lada-windows-exe' context, usually a CLI tool is easier to build first.
+        # Let's add --cli-only to the spec file execution if possible, OR just let it fail if dependencies are missing.
+        # BUT wait, lada.spec 'parser_args' reads sys.argv. PyInstaller passes its own args.
+        # This is a known issue with passing args to spec files.
+        # We will skip modifying arguments and instead ensure FFMPEG is installed (added in previous step).
+        
         pyinstaller --noconfirm `
           --distpath './dist' `
           --buildpath './build' `
