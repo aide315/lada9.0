@@ -1,0 +1,84 @@
+name: Build Windows EXE
+
+on:
+  push:
+    branches: [ main, feat/re-mosaic ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Python 3.13
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.13'
+    
+    - name: Install uv
+      run: |
+        pip install uv
+    
+    - name: Create virtual environment
+      run: |
+        uv venv --python 3.13 venv
+        
+    - name: Install dependencies
+      run: |
+        .\venv\Scripts\Activate.ps1
+        uv pip install -r lada-v0.9.0/lada/packaging/windows/requirements.txt --extra-index-url https://download.pytorch.org/whl/cu128
+        uv pip install pyinstaller==6.16.0
+        deactivate
+      shell: powershell
+    
+    - name: Download model weights
+      run: |
+        $modelDir = "lada-v0.9.0/lada/model_weights"
+        mkdir -p $modelDir
+        
+        # Download models (simplified for demonstration)
+        Write-Host "Model weights directory prepared"
+      shell: powershell
+    
+    - name: Build CLI executable
+      run: |
+        cd lada-v0.9.0/lada
+        ..\..\venv\Scripts\Activate.ps1
+        pyinstaller --noconfirm ./packaging/windows/lada.spec -- --cli-only
+        deactivate
+      shell: powershell
+    
+    - name: Create 7z archive
+      run: |
+        cd lada-v0.9.0/lada
+        $version = (..\..\venv\Scripts\python.exe -c "import lada; print(lada.VERSION)")
+        
+        # Install 7-zip if needed
+        choco install 7zip -y
+        
+        $archivePath = "./dist/lada-$version.7z"
+        7z a "$archivePath" "./dist/lada"
+        
+        # Get SHA256 hash
+        $hash = (Get-FileHash -Algorithm SHA256 "$archivePath").Hash.ToLower()
+        Add-Content -Path "$archivePath.sha256" -Value "$hash  lada-$version.7z"
+      shell: powershell
+    
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: lada-windows-exe
+        path: lada-v0.9.0/lada/dist/lada-*.7z*
+        retention-days: 30
+    
+    - name: Create Release
+      if: startsWith(github.ref, 'refs/tags/')
+      uses: softprops/action-gh-release@v1
+      with:
+        files: lada-v0.9.0/lada/dist/lada-*.7z*
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
