@@ -62,7 +62,13 @@ def get_gui_components(project_root_dir: str, common_datas: list, common_binarie
         pathex=[],
         binaries=gui_binaries,
         datas=gui_datas,
-        hiddenimports=collect_submodules("lada.gui"),
+        hiddenimports=collect_submodules("lada.gui") + [
+            "lada.gui.export.export_view",
+            "lada.gui.export.export_utils",
+            "lada.gui.export.export_item_data",
+            "lada.gui.export.shutdown_manager",
+            "lada.gui.export.spinner_button"
+        ],
         hookspath=[],
         hooksconfig={
             "gi": {
