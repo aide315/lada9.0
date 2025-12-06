@@ -37,6 +37,7 @@ jobs:
         .\venv\Scripts\Activate.ps1
         uv pip install -r lada-v0.9.0/lada/packaging/windows/requirements.txt --extra-index-url https://download.pytorch.org/whl/cu128
         uv pip install pyinstaller==6.16.0
+        uv pip install Pillow  # Required for icon format conversion
         deactivate
       shell: powershell
     
