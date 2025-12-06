@@ -75,11 +75,11 @@ jobs:
         Write-Host "Model weights placeholders created successfully"
       shell: powershell
     
-    - name: Build CLI executable
+    - name: Build executable
       run: |
         cd lada-v0.9.0/lada
         ..\..\venv\Scripts\Activate.ps1
-        pyinstaller --noconfirm ./packaging/windows/lada.spec -- --cli-only
+        pyinstaller --noconfirm ./packaging/windows/lada.spec
         deactivate
       shell: powershell
     
