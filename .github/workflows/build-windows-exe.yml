@@ -38,7 +38,8 @@ jobs:
     - name: Download model weights
       run: |
         $modelDir = "lada-v0.9.0/lada/model_weights"
-        mkdir -p $modelDir
+        # 使用 PowerShell 的正确语法创建目录，避免目录已存在的错误
+        New-Item -ItemType Directory -Path $modelDir -Force -ErrorAction SilentlyContinue | Out-Null
         
         # Download models (simplified for demonstration)
         Write-Host "Model weights directory prepared"
