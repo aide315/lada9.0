@@ -62,7 +62,7 @@ def get_gui_components(project_root_dir: str, common_datas: list, common_binarie
         pathex=[],
         binaries=gui_binaries,
         datas=gui_datas,
-        hiddenimports=[],
+        hiddenimports=['lada.gui.export.export_view'],
         hookspath=[],
         hooksconfig={
             "gi": {
