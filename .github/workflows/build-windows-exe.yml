@@ -46,33 +46,33 @@ jobs:
         $modelDir = "lada-v0.9.0/lada/model_weights"
         New-Item -ItemType Directory -Path $modelDir -Force -ErrorAction SilentlyContinue | Out-Null
         
-        # Create placeholder model files to satisfy PyInstaller
+        # Download actual model files
         $models = @(
-            "lada_mosaic_detection_model_v2.pt",
-            "lada_mosaic_detection_model_v3.1_accurate.pt", 
-            "lada_mosaic_detection_model_v3.1_fast.pt",
-            "lada_mosaic_restoration_model_generic_v1.2.pth"
+            @{ Url = "https://huggingface.co/ladaapp/lada/resolve/main/lada_mosaic_detection_model_v2.pt?download=true"; Name = "lada_mosaic_detection_model_v2.pt" },
+            @{ Url = "https://huggingface.co/ladaapp/lada/resolve/main/lada_mosaic_detection_model_v3.1_accurate.pt?download极=true"; Name = "lada_mosaic_detection_model_v3.1_accurate.pt" },
+            @{ Url = "https://huggingface.co/ladaapp/lada/resolve/main/lada_mosaic_detection_model_v3.1_fast.pt?download=true"; Name = "lada_mosaic_detection_model_v3.1_fast.pt" },
+            @{ Url = "https://huggingface.co/ladaapp/lada/resolve/main/lada_mosaic_restoration_model_generic_v1.2.pth?download=true"; Name = "lada_mosaic_restoration_model_generic_v1.2.pth" }
         )
         
         foreach ($model in $models) {
-            $outPath = Join-Path $modelDir $model
+            $outPath = Join-Path $modelDir $model.Name
             if (!(Test-Path $outPath)) {
-                Write-Host "Creating placeholder: $model"
-                # Create empty file as placeholder
-                New-Item -ItemType File -Path $outPath -Force | Out-Null
+                Write-Host "Downloading $($model.Name)..."
+                Invoke-WebRequest -Uri $model.Url -OutFile $outPath
             }
         }
         
-        # Create 3rd_party directory and placeholder
+        # Download third-party models
         $dir3rd = Join-Path $modelDir "3rd_party"
         New-Item -ItemType Directory -Path $dir3rd -Force -ErrorAction SilentlyContinue | Out-Null
         
         $out3rd = Join-Path $dir3rd "clean_youknow_video.pth"
         if (!(Test-Path $out3rd)) {
-            New-Item -ItemType File -Path $out3rd -Force | Out-Null
+            Write-Host "Downloading clean_youknow_video.pth..."
+            Invoke-WebRequest -Uri "https://drive.usercontent.google.com/download?id=1ulct4RhRxQp1v5xwEmUH7xz7AK42Oqlw&export=download&confirm=t" -OutFile $out3rd
         }
         
-        Write-Host "Model weights placeholders created successfully"
+        Write-Host "All model weights downloaded successfully"
       shell: powershell
     
     - name: Build executable
