@@ -38,8 +38,9 @@ def set_environment_variables(project_root_dir: str):
     _update_env_var("LIB", [lib_dir])
     _update_env_var("INCLUDE", includes)
 
-    bin_gdbus = shutil.which("gdbus.exe")
-    assert bin_gdbus is not None, "gdbus.exe not found. Did gvsbuild successfully build GTK libs?"
+    # Skip GTK environment setup for GitHub Actions build
+    # bin_gdbus = shutil.which("gdbus.exe")
+    # assert bin_gdbus is not None, "gdbus.exe not found. Did gvsbuild successfully build GTK libs?"
 
 def get_gui_components(project_root_dir: str, common_datas: list, common_binaries: list, common_runtime_hooks: list, common_icon):
     gui_datas = common_datas + [
@@ -52,10 +53,12 @@ def get_gui_components(project_root_dir: str, common_datas: list, common_binarie
 
     gtk_release_dir = pathlib.Path(project_root_dir) / "build_gtk_release" / "gtk" / "x64" / "release"
 
-    gui_binaries = common_binaries + [
-        (str(gtk_release_dir / "bin" / "gdbus.exe"), "."),
-        (str(gtk_release_dir / "lib" / "girepository-1.0" / "GioWin32-2.0.typelib"), "gi_typelibs"),
-    ]
+    gui_binaries = common_binaries
+    # Skip GTK binaries for GitHub Actions build
+    # gui_binaries = common_binaries + [
+    #     (str(gtk_release_dir / "bin" / "gdbus.exe"), "."),
+    #     (str(gtk_release_dir / "lib" / "girepository-1.0" / "GioWin32-2.0.typelib"), "gi_typelibs"),
+    # ]
 
     gui_a = Analysis(
         [ospj(project_root_dir, 'lada/gui/main.py')],
